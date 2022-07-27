@@ -34,7 +34,6 @@ export const AddPost = () => {
 
 	const handleChangeFile = (event) => {
 		const file = event.target.files[0];
-		console.log(file);
 		if (file) {
 			let fSize = file.size;
 
