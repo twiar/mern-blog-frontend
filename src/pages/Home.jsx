@@ -20,6 +20,16 @@ export const Home = () => {
 	const isPostsLoading = posts.status === "loading";
 	const isTagsLoading = tags.status === "loading";
 
+	const commentCount = (postId) => {
+		let count = 0;
+		comments.items.forEach((comment) => {
+			if (comment.postId == postId) {
+				count++;
+			}
+		});
+		return count;
+	};
+
 	React.useEffect(() => {
 		dispatch(fetchComments());
 		dispatch(fetchPosts());
@@ -35,7 +45,7 @@ export const Home = () => {
 			<Grid container spacing={4}>
 				<Grid xs={8} item>
 					{(isPostsLoading ? [...Array(5)] : posts.items)
-						.filter((obj) => obj?.tags.includes(tag))
+						.filter((obj) => (tag ? obj?.tags.includes(tag) : obj))
 						.map((obj, index) =>
 							isPostsLoading ? (
 								<Post key={index} isLoading={true} />
@@ -51,7 +61,7 @@ export const Home = () => {
 										.replace(/-/g, "/")
 										.replace(/T/g, " ")}
 									viewsCount={obj.viewsCount}
-									commentsCount={3}
+									commentsCount={commentCount(obj._id)}
 									tags={obj.tags}
 									isEditable={userData?._id === obj.user._id}
 								/>

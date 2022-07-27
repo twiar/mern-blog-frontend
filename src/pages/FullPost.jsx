@@ -17,6 +17,16 @@ export const FullPost = () => {
 	const { comments } = useSelector((state) => state.comments);
 	const dispatch = useDispatch();
 
+	const commentCount = (postId) => {
+		let count = 0;
+		comments.items.forEach((comment) => {
+			if (comment.postId == postId) {
+				count++;
+			}
+		});
+		return count;
+	};
+
 	const commentReceiveData = (data) => {
 		setCommentData(data);
 	};
@@ -51,7 +61,7 @@ export const FullPost = () => {
 					.replace(/-/g, "/")
 					.replace(/T/g, " ")}
 				viewsCount={data.viewsCount}
-				commentsCount={3}
+				commentsCount={commentCount(data._id)}
 				tags={data.tags}
 				isFullPost>
 				<ReactMarkdown children={data.text} />
