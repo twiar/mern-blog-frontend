@@ -9,13 +9,14 @@ import { TagsBlock } from "../components/TagsBlock";
 import { CommentsBlock } from "../components/CommentsBlock";
 import { fetchPosts, fetchTags } from "../redux/slices/posts";
 import { fetchComments } from "../redux/slices/comments";
+import { useParams } from "react-router-dom";
 
 export const Home = () => {
 	const dispatch = useDispatch();
 	const userData = useSelector((state) => state.auth.data);
 	const { posts, tags } = useSelector((state) => state.posts);
 	const { comments } = useSelector((state) => state.comments);
-
+	const { tag } = useParams();
 	const isPostsLoading = posts.status === "loading";
 	const isTagsLoading = tags.status === "loading";
 
@@ -33,27 +34,29 @@ export const Home = () => {
 			</Tabs>
 			<Grid container spacing={4}>
 				<Grid xs={8} item>
-					{(isPostsLoading ? [...Array(5)] : posts.items).map((obj, index) =>
-						isPostsLoading ? (
-							<Post key={index} isLoading={true} />
-						) : (
-							<Post
-								key={obj._id}
-								id={obj._id}
-								title={obj.title}
-								imageUrl={obj.imageUrl ? `${process.env.REACT_APP_API_URL}${obj.imageUrl}` : ""}
-								user={obj.user}
-								createdAt={obj.createdAt
-									.substring(0, obj.createdAt.lastIndexOf(".") - 3)
-									.replace(/-/g, "/")
-									.replace(/T/g, " ")}
-								viewsCount={obj.viewsCount}
-								commentsCount={3}
-								tags={obj.tags}
-								isEditable={userData?._id === obj.user._id}
-							/>
-						),
-					)}
+					{(isPostsLoading ? [...Array(5)] : posts.items)
+						.filter((obj) => obj?.tags.includes(tag))
+						.map((obj, index) =>
+							isPostsLoading ? (
+								<Post key={index} isLoading={true} />
+							) : (
+								<Post
+									key={obj._id}
+									id={obj._id}
+									title={obj.title}
+									imageUrl={obj.imageUrl ? `${process.env.REACT_APP_API_URL}${obj.imageUrl}` : ""}
+									user={obj.user}
+									createdAt={obj.createdAt
+										.substring(0, obj.createdAt.lastIndexOf(".") - 3)
+										.replace(/-/g, "/")
+										.replace(/T/g, " ")}
+									viewsCount={obj.viewsCount}
+									commentsCount={3}
+									tags={obj.tags}
+									isEditable={userData?._id === obj.user._id}
+								/>
+							),
+						)}
 				</Grid>
 				<Grid xs={4} item>
 					<TagsBlock items={tags.items} isLoading={isTagsLoading} />

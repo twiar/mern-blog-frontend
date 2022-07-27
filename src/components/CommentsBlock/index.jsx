@@ -13,11 +13,9 @@ import { Link } from "react-router-dom";
 import styles from "./CommentsBlock.module.scss";
 
 export const CommentsBlock = ({ items, children, isLoading = true, checkId, from }) => {
-	console.log(items);
 	return (
 		<SideBlock title={from === "FullPost" ? "Комментарии" : "Последние комментарии"}>
 			<List>
-				{console.log(items.length)}
 				{(isLoading ? [...Array(5)] : items)
 
 					.filter((obj, index) =>
