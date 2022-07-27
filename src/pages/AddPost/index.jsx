@@ -11,7 +11,9 @@ import styles from "./AddPost.module.scss";
 
 import axios from "../../axios";
 
+import { useDispatch } from "react-redux";
 import { useNavigate, Navigate, useParams } from "react-router-dom";
+import { fetchRemoveImage } from "../../redux/slices/images";
 
 export const AddPost = () => {
 	const { id } = useParams();
@@ -23,10 +25,12 @@ export const AddPost = () => {
 	const [tags, setTags] = React.useState("");
 	const [imageBlob, setImageBlob] = React.useState("");
 	const [imageUrl, setImageUrl] = React.useState("");
+	const [deleteImageUrl, setDeleteImageUrl] = React.useState("");
 	const [imageData, setImageData] = React.useState(null);
 	const inputFileRef = React.useRef(null);
 
 	const isEditing = Boolean(id);
+	const dispatch = useDispatch();
 
 	const handleChangeFile = (event) => {
 		const file = event.target.files[0];
@@ -47,7 +51,14 @@ export const AddPost = () => {
 		}
 	};
 
-	const onClickRemoveImage = () => {
+	const onClickRemoveImageUrl = () => {
+		if (isEditing) {
+			setDeleteImageUrl(imageUrl);
+		}
+		setImageUrl("");
+	};
+
+	const onClickRemoveImageBlob = () => {
 		setImageBlob("");
 	};
 
@@ -70,6 +81,11 @@ export const AddPost = () => {
 
 			if (!isEditing) {
 				await axios.post("/upload", imageData);
+			} else {
+				if (deleteImageUrl && deleteImageUrl !== imageUrl) {
+					dispatch(fetchRemoveImage(deleteImageUrl.split("/")[2]));
+					await axios.post("/upload", imageData);
+				}
 			}
 
 			const _id = isEditing ? id : data._id;
@@ -125,15 +141,23 @@ export const AddPost = () => {
 			<input ref={inputFileRef} type="file" onChange={handleChangeFile} hidden />
 			{imageBlob && (
 				<>
-					<Button variant="contained" color="error" onClick={onClickRemoveImage}>
+					<Button variant="contained" color="error" onClick={onClickRemoveImageBlob}>
 						Удалить
 					</Button>
 					<img className={styles.image} src={imageBlob} alt="Uploaded" />
-					{/* <img
+				</>
+			)}
+
+			{!imageBlob && imageUrl && (
+				<>
+					<Button variant="contained" color="error" onClick={onClickRemoveImageUrl}>
+						Удалить
+					</Button>
+					<img
 						className={styles.image}
-						src={imageBlob}
+						src={`${process.env.REACT_APP_API_URL}${imageUrl}`}
 						alt="Uploaded"
-					/> */}
+					/>
 				</>
 			)}
 			<br />

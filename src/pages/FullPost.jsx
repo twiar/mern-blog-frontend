@@ -65,7 +65,7 @@ export const FullPost = () => {
 					},
 				]}
 				isLoading={false}>
-				<AddComment />
+				{window.localStorage.token && <AddComment />}
 			</CommentsBlock>
 		</>
 	);

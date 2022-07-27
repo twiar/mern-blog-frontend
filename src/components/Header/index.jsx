@@ -15,6 +15,8 @@ export const Header = () => {
 		if (window.confirm("Вы действительно хотите выйти?")) {
 			dispatch(logout());
 			window.localStorage.removeItem("token");
+			window.localStorage.removeItem("avatarUrl");
+			window.localStorage.removeItem("fullName");
 		}
 	};
 
