@@ -21,26 +21,34 @@ export const AddPost = () => {
 	const [text, setText] = React.useState("");
 	const [title, setTitle] = React.useState("");
 	const [tags, setTags] = React.useState("");
+	const [imageBlob, setImageBlob] = React.useState("");
 	const [imageUrl, setImageUrl] = React.useState("");
+	const [imageData, setImageData] = React.useState(null);
 	const inputFileRef = React.useRef(null);
 
 	const isEditing = Boolean(id);
 
-	const handleChangeFile = async (event) => {
-		try {
-			const formData = new FormData();
-			const file = event.target.files[0];
-			formData.append("image", file);
-			const { data } = await axios.post("/upload", formData);
-			setImageUrl(data.url);
-		} catch (err) {
-			console.warn(err);
-			alert("Ошибка при загрузке файла!");
+	const handleChangeFile = (event) => {
+		const file = event.target.files[0];
+		console.log(file);
+		if (file) {
+			let fSize = file.size;
+
+			let fileCheckSize = Math.round(fSize / 1024);
+			if (fileCheckSize >= 4096) {
+				alert("Размер картинки превышает 4MB");
+			} else {
+				setImageBlob(URL.createObjectURL(file));
+				setImageUrl(`/uploads/${file.name}`);
+				const formData = new FormData();
+				formData.append("image", file);
+				setImageData(formData);
+			}
 		}
 	};
 
-	const onClickRemoveImage = async () => {
-		setImageUrl("");
+	const onClickRemoveImage = () => {
+		setImageBlob("");
 	};
 
 	const onChange = React.useCallback((value) => {
@@ -59,6 +67,10 @@ export const AddPost = () => {
 			const { data } = isEditing
 				? await axios.patch(`/posts/${id}`, fields)
 				: await axios.post("/posts", fields);
+
+			if (!isEditing) {
+				await axios.post("/upload", imageData);
+			}
 
 			const _id = isEditing ? id : data._id;
 
@@ -111,16 +123,17 @@ export const AddPost = () => {
 				Загрузить превью
 			</Button>
 			<input ref={inputFileRef} type="file" onChange={handleChangeFile} hidden />
-			{imageUrl && (
+			{imageBlob && (
 				<>
 					<Button variant="contained" color="error" onClick={onClickRemoveImage}>
 						Удалить
 					</Button>
-					<img
+					<img className={styles.image} src={imageBlob} alt="Uploaded" />
+					{/* <img
 						className={styles.image}
-						src={`${process.env.REACT_APP_API_URL}${imageUrl}`}
+						src={imageBlob}
 						alt="Uploaded"
-					/>
+					/> */}
 				</>
 			)}
 			<br />

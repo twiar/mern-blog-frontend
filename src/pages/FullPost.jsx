@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown";
 import axios from "../axios";
 
 import { Post } from "../components/Post";
-import { Index } from "../components/AddComment";
+import { AddComment } from "../components/AddComment";
 import { CommentsBlock } from "../components/CommentsBlock";
 
 export const FullPost = () => {
@@ -36,7 +36,10 @@ export const FullPost = () => {
 				title={data.title}
 				imageUrl={data.imageUrl ? `${process.env.REACT_APP_API_URL}${data.imageUrl}` : ""}
 				user={data.user}
-				createdAt={data.createdAt}
+				createdAt={data.createdAt
+					.substring(0, data.createdAt.lastIndexOf(".") - 3)
+					.replace(/-/g, "/")
+					.replace(/T/g, " ")}
 				viewsCount={data.viewsCount}
 				commentsCount={3}
 				tags={data.tags}
@@ -62,7 +65,7 @@ export const FullPost = () => {
 					},
 				]}
 				isLoading={false}>
-				<Index />
+				<AddComment />
 			</CommentsBlock>
 		</>
 	);

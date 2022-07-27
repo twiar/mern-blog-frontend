@@ -1,22 +1,51 @@
 .root {
-  width: 400px;
-  padding: 50px;
-  border: 1px solid #dedede;
-  margin: 50px auto;
+	width: 400px;
+	padding: 50px;
+	border: 1px solid #dedede;
+	margin: 50px auto;
 }
 
 .field {
-  margin-bottom: 20px !important;
+	margin-bottom: 20px !important;
 }
 
 .title {
-  text-align: center !important;
-  font-weight: bold !important;
-  margin-bottom: 30px !important;
+	text-align: center !important;
+	font-weight: bold !important;
+	margin-bottom: 30px !important;
 }
 
 .avatar {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 30px;
+
+	&:hover {
+		.removeAvatar {
+			opacity: 1;
+		}
+	}
+}
+
+.avatarBox {
+	position: relative;
+}
+
+.removeAvatar {
+	background-color: rgba(0, 0, 0, 0.5) !important;
+	right: 0;
+	position: absolute !important;
+	z-index: 1;
+	min-width: 24px !important;
+	padding: 0 !important;
+	opacity: 0;
+}
+
+.addAvatar {
+	background-color: rgba(0, 0, 0, 0.5) !important;
+	right: 0;
+	position: absolute !important;
+	z-index: 1;
+	min-width: 24px !important;
+	padding: 0 !important;
 }
