@@ -69,7 +69,6 @@ export const CommentsBlock = ({ items, children, isLoading = true, checkId, from
 									</ListItem>
 								</Link>
 							)}
-							<Divider variant="inset" component="li" />
 						</React.Fragment>
 					))}
 			</List>

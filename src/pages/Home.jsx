@@ -31,11 +31,37 @@ export const Home = () => {
 		return count;
 	};
 
-	const compare = (a, b) => {
+	const comparePopular = (a, b) => {
 		if (a.viewsCount + commentCount(a._id) < b.viewsCount + commentCount(b._id)) {
 			return 1;
 		}
 		if (a.viewsCount + commentCount(a._id) > b.viewsCount + commentCount(b._id)) {
+			return -1;
+		}
+		return 0;
+	};
+
+	const compareNewest = (a, b) => {
+		let aTime = a.createdAt
+			.substring(0, a.createdAt.lastIndexOf(".") - 3)
+			.replace(/(-|T|:)/g, "/")
+			.split("/");
+
+		let bTime = b.createdAt
+			.substring(0, b.createdAt.lastIndexOf(".") - 3)
+			.replace(/(-|T|:)/g, "/")
+			.split("/");
+
+		let aDate = new Date(aTime[0], aTime[1], aTime[2], aTime[3], aTime[4]);
+		let bDate = new Date(bTime[0], bTime[1], bTime[2], bTime[3], bTime[4]);
+
+		let aTimestamp = aDate.getTime();
+		let bTimestamp = bDate.getTime();
+
+		if (aTimestamp < bTimestamp) {
+			return 1;
+		}
+		if (aTimestamp > bTimestamp) {
 			return -1;
 		}
 		return 0;
@@ -60,10 +86,10 @@ export const Home = () => {
 					{(isPostsLoading
 						? [...Array(5)]
 						: location.pathname == "/popular"
-						? posts.items.slice().sort(compare)
+						? posts.items.slice().sort(comparePopular)
 						: tag
 						? posts.items.filter((obj) => obj?.tags.includes(tag))
-						: posts.items
+						: posts.items.slice().sort(compareNewest)
 					).map((obj, index) =>
 						isPostsLoading ? (
 							<Post key={index} isLoading={true} />

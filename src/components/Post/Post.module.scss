@@ -2,15 +2,15 @@ $blue: #4361ee;
 
 .root {
 	background-color: #fff;
-	border: 1px solid #dedede;
 	border-radius: 6px;
 	overflow: hidden;
 	margin-bottom: 15px;
 	position: relative;
+	transition: 0.3s box-shadow ease-in-out;
 
 	&:hover {
-		border: 1px solid $blue;
-		box-shadow: 0 0 0 1px $blue;
+		box-shadow: 0 0 35px 5px rgba(255, 255, 255, 0.15);
+		transition: 0.15s box-shadow ease-in-out;
 
 		.editButtons {
 			opacity: 1;
@@ -19,9 +19,8 @@ $blue: #4361ee;
 
 	&Full {
 		&:hover {
-			background-color: #fff;
-			border: 1px solid #dedede;
 			box-shadow: none;
+			background-color: #fff;
 		}
 	}
 }

@@ -7,6 +7,8 @@ import Container from "@mui/material/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectIsAuth } from "../../redux/slices/auth";
 
+import logo from "../../assets/logo.svg";
+
 export const Header = () => {
 	const dispatch = useDispatch();
 	const isAuth = useSelector(selectIsAuth);
@@ -25,7 +27,7 @@ export const Header = () => {
 			<Container maxWidth="lg">
 				<div className={styles.inner}>
 					<Link className={styles.logo} to="/">
-						<div>REACT BLOG</div>
+						<img src={logo} alt="REACT BLOG" />
 					</Link>
 					<div className={styles.buttons}>
 						{isAuth ? (

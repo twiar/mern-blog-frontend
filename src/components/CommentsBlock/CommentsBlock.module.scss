@@ -1,7 +1,15 @@
 .commentsBlock {
 	text-decoration: none;
 
-	&:hover {
-		color: #c62828;
+	li {
+		transition: background-color 0.15s ease-in-out;
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.05);
+			transition: background-color 0.15s ease-in-out;
+		}
+	}
+
+	span {
+		color: rgba(0, 0, 0, 0.87);
 	}
 }
