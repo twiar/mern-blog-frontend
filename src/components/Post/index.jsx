@@ -64,9 +64,9 @@ export const Post = ({
 			<div className={styles.wrapper}>
 				<UserInfo {...user} additionalText={createdAt} />
 				<div className={styles.indention}>
-					<h1 className={clsx(styles.title, { [styles.titleFull]: isFullPost })}>
+					<h2 className={clsx(styles.title, { [styles.titleFull]: isFullPost })}>
 						{isFullPost ? title : <a href={`/posts/${id}`}>{title}</a>}
-					</h1>
+					</h2>
 					<ul className={styles.tags}>
 						{tags &&
 							tags.map((name) => (
