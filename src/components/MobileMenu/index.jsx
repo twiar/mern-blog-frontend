@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import images from "../../constants/images";
 import { logout, selectIsAuth } from "../../redux/slices/auth";
+import { fetchComments } from "../../redux/slices/comments";
+import { fetchPosts, fetchTags } from "../../redux/slices/posts";
 import { CommentsBlock } from "../CommentsBlock";
 import { TagsBlock } from "../TagsBlock";
 import styles from "./MobileMenu.module.scss";
@@ -24,6 +26,12 @@ export const MobileMenu = (props) => {
 			window.localStorage.removeItem("fullName");
 		}
 	};
+
+	React.useEffect(() => {
+		dispatch(fetchComments());
+		dispatch(fetchPosts());
+		dispatch(fetchTags());
+	}, []);
 
 	useEffect(() => {
 		props.ifClose(false);

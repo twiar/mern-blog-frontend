@@ -3,6 +3,10 @@
 	padding: 50px;
 	border: 1px solid #dedede;
 	margin: 50px auto;
+
+	@media screen and (max-width: 768px) {
+		width: 100%;
+	}
 }
 
 .field {
