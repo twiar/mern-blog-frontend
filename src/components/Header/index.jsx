@@ -75,13 +75,13 @@ export const Header = () => {
 								<Link to="/login">
 									<Button variant="outlined" className={`${styles.button}`}>
 										<img src={images.login} alt="login" />
-										Войти
+										Login
 									</Button>
 								</Link>
 								<Link to="/register">
 									<Button variant="contained" className={`${styles.button}`}>
 										<img src={images.register} alt="register" />
-										Создать аккаунт
+										Create an account
 									</Button>
 								</Link>
 							</>
