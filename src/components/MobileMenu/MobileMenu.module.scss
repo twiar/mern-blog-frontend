@@ -1,17 +1,25 @@
 .root {
-	background-color: rgb(255, 255, 255, 0.85);
-	padding: 10px 0;
-	margin-bottom: 30px;
-	position: fixed;
-	width: 100%;
-	z-index: 1;
-	top: 0px;
+	background-color: rgba(245, 245, 245, 1);
+	position: absolute;
+	display: flex;
+	flex-direction: column !important;
+	padding: 15px;
+	width: 100vw;
+	height: 100vh;
+	top: 0;
+	transform: translateX(100vw);
+	transition: transform 0.3s ease-in-out;
+	overflow-y: scroll;
+}
+
+.activeRoot {
+	transform: translateX(0);
+	transition: transform 0.3s ease-in-out;
 }
 
 .inner {
 	display: flex;
 	justify-content: space-between;
-	max-height: 40px;
 }
 
 .logo {
@@ -28,7 +36,7 @@
 
 .button {
 	background-color: rgba(255, 255, 255, 0.7) !important;
-	box-shadow: 0 5px 5px 1px rgba(51, 51, 51, 0.05);
+	box-shadow: none;
 	border: none !important;
 	height: 40px;
 	border-radius: 5px;
@@ -37,7 +45,6 @@
 	line-height: 24px;
 	vertical-align: middle;
 	font-size: 14px;
-	margin-left: 10px;
 	display: flex;
 	align-items: center;
 	transition: all 0.15s ease-in-out;
@@ -49,8 +56,19 @@
 
 	&:hover {
 		background-color: rgba(255, 255, 255, 1);
-		box-shadow: 0 5px 5px 1px rgba(51, 51, 51, 0.15);
+		box-shadow: 0 5px 5px 1px rgba(51, 51, 51, 0.05);
 		transition: all 0.15s ease-in-out;
+	}
+}
+
+.close {
+	position: absolute !important;
+	top: 15px;
+	right: 15px;
+	padding: 0 !important;
+	min-width: 40px !important;
+	img {
+		margin-right: 0;
 	}
 }
 
@@ -70,6 +88,7 @@
 	position: relative;
 	box-shadow: none;
 	padding: 10px 0px 10px 20px;
+	justify-content: space-between;
 	min-width: 170px;
 
 	div {
@@ -99,6 +118,7 @@
 	padding: 0 !important;
 	min-width: 45px !important;
 	height: 40px;
+	margin-bottom: 0 !important;
 	img {
 		margin-right: 0;
 	}
@@ -106,8 +126,11 @@
 
 .buttons {
 	display: flex;
-	button {
-		margin-left: 10px;
+	flex-direction: column;
+	margin-bottom: 20px;
+
+	.button {
+		margin-bottom: 10px;
 	}
 
 	a {

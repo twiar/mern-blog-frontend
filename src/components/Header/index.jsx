@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 
@@ -7,11 +7,22 @@ import Container from "@mui/material/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectIsAuth } from "../../redux/slices/auth";
 
-import logo from "../../assets/logo.svg";
+import images from "../../constants/images";
+import { Box } from "@mui/material";
+import { MobileMenu } from "../MobileMenu";
 
 export const Header = () => {
 	const dispatch = useDispatch();
 	const isAuth = useSelector(selectIsAuth);
+	const [toggleMenu, setToggleMenu] = useState(false);
+
+	function refreshPage() {
+		window.location.reload(false);
+	}
+
+	if (!window.localStorage.avatarUrl && isAuth) {
+		refreshPage();
+	}
 
 	const onClickLogout = () => {
 		if (window.confirm("Вы действительно хотите выйти?")) {
@@ -22,36 +33,72 @@ export const Header = () => {
 		}
 	};
 
+	const callback = (bool) => {
+		setToggleMenu(bool);
+	};
+
 	return (
 		<div className={styles.root}>
 			<Container maxWidth="lg">
 				<div className={styles.inner}>
 					<Link className={styles.logo} to="/">
-						<img src={logo} alt="REACT BLOG" />
+						<img src={images.logo} alt="REACT BLOG" />
 					</Link>
-					<div className={styles.buttons}>
+					<Box className={styles.buttons} display={{ xs: "none", md: "inherit" }}>
 						{isAuth ? (
 							<>
 								<Link to="/add-post">
-									<Button variant="contained">Написать статью</Button>
+									<Button variant="contained" className={`${styles.button} ${styles.add}`}>
+										<img src={images.add} alt="add post" />
+										Написать статью
+									</Button>
 								</Link>
-								<Button onClick={onClickLogout} variant="contained" color="error">
-									Выйти
-								</Button>
+								<div className={`${styles.button} ${styles.avatar}`}>
+									<div>
+										<img
+											src={`${process.env.REACT_APP_API_URL}${window.localStorage.avatarUrl}`}
+											alt="avatar"
+										/>
+									</div>
+									{window.localStorage.fullName}
+									<Button
+										onClick={onClickLogout}
+										variant="contained"
+										color="error"
+										className={`${styles.button} ${styles.logout}`}>
+										<img src={images.logout} alt="logout" />
+									</Button>
+								</div>
 							</>
 						) : (
 							<>
 								<Link to="/login">
-									<Button variant="outlined">Войти</Button>
+									<Button variant="outlined" className={`${styles.button}`}>
+										<img src={images.login} alt="login" />
+										Войти
+									</Button>
 								</Link>
 								<Link to="/register">
-									<Button variant="contained">Создать аккаунт</Button>
+									<Button variant="contained" className={`${styles.button}`}>
+										<img src={images.register} alt="register" />
+										Создать аккаунт
+									</Button>
 								</Link>
 							</>
 						)}
-					</div>
+					</Box>
+					<Box className={styles.buttons} display={{ xs: "block", md: "none" }}>
+						<Button
+							variant="contained"
+							color="error"
+							className={`${styles.button} ${styles.menu}`}
+							onClick={() => callback(true)}>
+							<img src={images.menu} alt="menu" />
+						</Button>
+					</Box>
 				</div>
 			</Container>
+			<MobileMenu ifClose={callback} ifOpen={toggleMenu} />
 		</div>
 	);
 };

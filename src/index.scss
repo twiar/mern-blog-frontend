@@ -1,4 +1,4 @@
-* {
+*:not(i) {
 	font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif !important;
 }
 
@@ -37,4 +37,9 @@ body {
 	margin-bottom: 10px;
 	text-decoration: none;
 	transition: 0.3s all ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
+	body {
+	}
 }

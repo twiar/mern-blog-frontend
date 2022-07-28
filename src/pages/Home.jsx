@@ -82,7 +82,7 @@ export const Home = () => {
 				Популярные
 			</NavLink>
 			<Grid container spacing={4}>
-				<Grid xs={8} item>
+				<Grid xs={12} md={8} item>
 					{(isPostsLoading
 						? [...Array(5)]
 						: location.pathname == "/popular"
@@ -112,7 +112,7 @@ export const Home = () => {
 						),
 					)}
 				</Grid>
-				<Grid xs={4} item>
+				<Grid display={{ xs: "none", md: "block" }} md={4} item>
 					<TagsBlock items={tags.items} isLoading={isTagsLoading} />
 					<CommentsBlock items={comments.items} isLoading={false} from={"Home"} />
 				</Grid>
