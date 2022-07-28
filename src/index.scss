@@ -5,3 +5,18 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	background-color: #f5f5f5 !important;
 }
+
+.active {
+	background-color: rgba(46, 67, 166, 0.1);
+	border-radius: 5px;
+	transition: 0.3s all ease-in-out;
+}
+
+.navLink {
+	color: rgb(46, 67, 166);
+	display: inline-flex;
+	padding: 15px 20px;
+	margin-bottom: 10px;
+	text-decoration: none;
+	transition: 0.3s all ease-in-out;
+}
