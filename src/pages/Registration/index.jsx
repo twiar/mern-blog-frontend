@@ -133,7 +133,7 @@ export const Registration = () => {
 				</div>
 				<TextField
 					className={styles.field}
-					label="Полное имя"
+					label="Full name"
 					error={Boolean(errors.fullName?.message)}
 					helperText={errors.fullName?.message}
 					{...register("fullName", { required: "Enter your name" })}
@@ -150,7 +150,7 @@ export const Registration = () => {
 				/>
 				<TextField
 					className={styles.field}
-					label="Пароль"
+					label="Password"
 					type="password"
 					error={Boolean(errors.password?.message)}
 					helperText={errors.password?.message}
