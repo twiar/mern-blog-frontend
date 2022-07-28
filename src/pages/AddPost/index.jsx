@@ -39,7 +39,7 @@ export const AddPost = () => {
 
 			let fileCheckSize = Math.round(fSize / 1024);
 			if (fileCheckSize >= 4096) {
-				alert("Размер картинки превышает 4MB");
+				alert("Image size exceeds 4MB");
 			} else {
 				setImageBlob(URL.createObjectURL(file));
 				setImageUrl(`/uploads/${file.name}`);
@@ -92,7 +92,7 @@ export const AddPost = () => {
 			navigate(`/posts/${_id}`);
 		} catch (err) {
 			console.warn(err);
-			alert("Ошибка при создании статьи!");
+			alert("Error while creating post!");
 		}
 	};
 
@@ -108,7 +108,7 @@ export const AddPost = () => {
 				})
 				.catch((err) => {
 					console.warn(err);
-					alert("Ошибка при получении статьи!");
+					alert("Error while getting post!");
 				});
 		}
 	}, []);
@@ -118,7 +118,7 @@ export const AddPost = () => {
 			spellChecker: false,
 			maxHeight: "400px",
 			autofocus: true,
-			placeholder: "Введите текст...",
+			placeholder: "Enter text...",
 			status: false,
 			autosave: {
 				enabled: true,
@@ -139,13 +139,13 @@ export const AddPost = () => {
 				variant="outlined"
 				size="large"
 				className={styles.load}>
-				Загрузить превью
+				Upload preview
 			</Button>
 			<input ref={inputFileRef} type="file" onChange={handleChangeFile} hidden />
 			{imageBlob && (
 				<>
 					<Button variant="contained" color="error" onClick={onClickRemoveImageBlob}>
-						Удалить
+						Delete
 					</Button>
 					<img className={styles.image} src={imageBlob} alt="Uploaded" />
 				</>
@@ -154,7 +154,7 @@ export const AddPost = () => {
 			{!imageBlob && imageUrl && (
 				<>
 					<Button variant="contained" color="error" onClick={onClickRemoveImageUrl}>
-						Удалить
+						Delete
 					</Button>
 					<img
 						className={styles.image}
@@ -168,7 +168,7 @@ export const AddPost = () => {
 			<TextField
 				classes={{ root: styles.title }}
 				variant="standard"
-				placeholder="Заголовок статьи..."
+				placeholder="Title"
 				value={title}
 				onChange={(e) => setTitle(e.target.value)}
 				fullWidth
@@ -178,16 +178,16 @@ export const AddPost = () => {
 				onChange={(e) => setTags(e.target.value)}
 				classes={{ root: styles.tags }}
 				variant="standard"
-				placeholder="Тэги"
+				placeholder="Tags"
 				fullWidth
 			/>
 			<SimpleMDE className={styles.editor} value={text} onChange={onChange} options={options} />
 			<div className={styles.buttons}>
 				<Button onClick={onSubmit} size="large" variant="contained">
-					{isEditing ? "Сохранить" : "Опубликовать"}
+					{isEditing ? "Save" : "Publish"}
 				</Button>
 				<a href="/">
-					<Button size="large">Отмена</Button>
+					<Button size="large">Cancel</Button>
 				</a>
 			</div>
 		</Paper>

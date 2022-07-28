@@ -38,7 +38,7 @@ export const AddComment = (props) => {
 			setMessage("");
 		} catch (err) {
 			console.warn(err);
-			alert("Ошибка при создании комментария!");
+			alert("Error creating comment!");
 		}
 	};
 
@@ -51,7 +51,7 @@ export const AddComment = (props) => {
 				/>
 				<div className={styles.form}>
 					<TextField
-						label="Написать комментарий"
+						label="Write a comment"
 						variant="outlined"
 						maxRows={10}
 						multiline
@@ -63,7 +63,7 @@ export const AddComment = (props) => {
 						onChange={handleChange}
 					/>
 					<Button disabled={!isValid} type="submit" size="large" variant="contained">
-						Отправить
+						Send
 					</Button>
 				</div>
 			</form>

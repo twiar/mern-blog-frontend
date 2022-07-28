@@ -76,10 +76,10 @@ export const Home = () => {
 	return (
 		<>
 			<NavLink to="/" className="navLink">
-				Новые
+				Newest
 			</NavLink>
 			<NavLink to="/popular" className="navLink">
-				Популярные
+				Popular
 			</NavLink>
 			<Grid container spacing={4}>
 				<Grid xs={12} md={8} item>

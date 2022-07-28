@@ -44,13 +44,15 @@ export const Registration = () => {
 		const data = await dispatch(fetchRegister(values));
 
 		if (!data.payload) {
-			return alert("Не удалось зарегистрироваться!");
+			return alert("Failed to register!");
 		} else {
 			await axios.post("/uploadavatar", avatarData);
 		}
 
 		if ("token" in data.payload) {
 			window.localStorage.setItem("token", data.payload.token);
+			window.localStorage.setItem("avatarUrl", data.payload.avatarUrl);
+			window.localStorage.setItem("fullName", data.payload.fullName);
 		}
 	};
 
@@ -61,7 +63,7 @@ export const Registration = () => {
 
 			let fileCheckSize = Math.round(fSize / 1024);
 			if (fileCheckSize >= 2048) {
-				alert("Размер картинки превышает 2MB");
+				alert("Image size exceeds 2MB");
 			} else {
 				setAvatarUrl(URL.createObjectURL(file));
 
@@ -82,7 +84,7 @@ export const Registration = () => {
 	return (
 		<Paper classes={{ root: styles.root }}>
 			<Typography classes={{ root: styles.title }} variant="h5">
-				Создание аккаунта
+				Create an account
 			</Typography>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<input
@@ -134,7 +136,7 @@ export const Registration = () => {
 					label="Полное имя"
 					error={Boolean(errors.fullName?.message)}
 					helperText={errors.fullName?.message}
-					{...register("fullName", { required: "Укажите полное имя" })}
+					{...register("fullName", { required: "Enter your name" })}
 					fullWidth
 				/>
 				<TextField
@@ -143,7 +145,7 @@ export const Registration = () => {
 					type="email"
 					error={Boolean(errors.email?.message)}
 					helperText={errors.email?.message}
-					{...register("email", { required: "Укажите почту" })}
+					{...register("email", { required: "Enter your email" })}
 					fullWidth
 				/>
 				<TextField
@@ -152,7 +154,7 @@ export const Registration = () => {
 					type="password"
 					error={Boolean(errors.password?.message)}
 					helperText={errors.password?.message}
-					{...register("password", { required: "Укажите пароль" })}
+					{...register("password", { required: "Enter password" })}
 					fullWidth
 				/>
 				<Button
@@ -164,7 +166,7 @@ export const Registration = () => {
 						setValue("avatarUrl", `${document.getElementById("avatarUrl").value}`);
 					}}
 					fullWidth>
-					Зарегистрироваться
+					Create an account
 				</Button>
 			</form>
 		</Paper>

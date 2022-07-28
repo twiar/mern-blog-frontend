@@ -25,7 +25,7 @@ export const Header = () => {
 	}
 
 	const onClickLogout = () => {
-		if (window.confirm("Вы действительно хотите выйти?")) {
+		if (window.confirm("Do you really want to leave?")) {
 			dispatch(logout());
 			window.localStorage.removeItem("token");
 			window.localStorage.removeItem("avatarUrl");
@@ -50,7 +50,7 @@ export const Header = () => {
 								<Link to="/add-post">
 									<Button variant="contained" className={`${styles.button} ${styles.add}`}>
 										<img src={images.add} alt="add post" />
-										Написать статью
+										Create post
 									</Button>
 								</Link>
 								<div className={`${styles.button} ${styles.avatar}`}>

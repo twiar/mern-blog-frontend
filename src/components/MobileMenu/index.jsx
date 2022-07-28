@@ -19,7 +19,7 @@ export const MobileMenu = (props) => {
 	const location = useLocation();
 
 	const onClickLogout = () => {
-		if (window.confirm("Вы действительно хотите выйти?")) {
+		if (window.confirm("Do you really want to leave?")) {
 			dispatch(logout());
 			window.localStorage.removeItem("token");
 			window.localStorage.removeItem("avatarUrl");
@@ -72,7 +72,7 @@ export const MobileMenu = (props) => {
 							<Link to="/add-post">
 								<Button variant="contained" className={`${styles.button} ${styles.add}`}>
 									<img src={images.add} alt="add post" />
-									Написать статью
+									Create post
 								</Button>
 							</Link>
 						</>
@@ -81,13 +81,13 @@ export const MobileMenu = (props) => {
 							<Link to="/login">
 								<Button variant="outlined" className={`${styles.button}`}>
 									<img src={images.login} alt="login" />
-									Войти
+									Log in
 								</Button>
 							</Link>
 							<Link to="/register">
 								<Button variant="contained" className={`${styles.button}`}>
 									<img src={images.register} alt="register" />
-									Создать аккаунт
+									Create an account
 								</Button>
 							</Link>
 						</>

@@ -5,7 +5,6 @@ import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import Skeleton from "@mui/material/Skeleton";
 import { Link } from "react-router-dom";
@@ -14,7 +13,7 @@ import styles from "./CommentsBlock.module.scss";
 
 export const CommentsBlock = ({ items, children, isLoading = true, checkId, from }) => {
 	return (
-		<SideBlock title={from === "FullPost" ? "Комментарии" : "Последние комментарии"}>
+		<SideBlock title={from === "FullPost" ? "Comments" : "Last comments"}>
 			<List>
 				{(isLoading ? [...Array(5)] : items)
 
@@ -64,7 +63,12 @@ export const CommentsBlock = ({ items, children, isLoading = true, checkId, from
 												<Skeleton variant="text" height={18} width={230} />
 											</div>
 										) : (
-											<ListItemText primary={obj.user.fullName} secondary={obj.text} />
+											<ListItemText
+												primary={obj.user.fullName}
+												secondary={
+													obj.text.length > 100 ? obj.text.slice(0, 100) + "..." : obj.text
+												}
+											/>
 										)}
 									</ListItem>
 								</Link>
