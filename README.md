@@ -1,4 +1,6 @@
-# Frontend of MERN Blog on React
+# Frontend of MERN Blog with Redux
+
+## [Open blog](https://mern-blog-frontend-psi.vercel.app)
 
 ---
 
